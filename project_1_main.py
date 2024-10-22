@@ -5,11 +5,12 @@ test = cl.cake()
 
 crsr = test.openConnection()
 
-i = "Y"
-while i == "Y":
-    #test.insert("Connor", "password1", crsr)
-    test.select(crsr)
-    print("Would you like to perform again? (Y?N)")
-    i = input()
+
+#loggedIn = test.login(crsr)
+
+
+test.createLogin(crsr)
+
+#test.selectUsers(crsr)
 
 test.closeConnection()
