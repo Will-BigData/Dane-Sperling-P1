@@ -15,6 +15,19 @@ class cake:
   
   def openConnection(self):
     return self.connection.cursor()
+  
+  
+
+  def start(self, crsr):
+    print("Do you have an account? (Y/N): ")
+    i = input()
+    if i =="Y":
+        admin = self.login(crsr)
+    elif i == "N":
+        self.createUser(crsr)
+    else:
+        print("Unknown response, please try again.")
+        self.start(crsr)
 
   def login(self, crsr):
 
@@ -30,7 +43,7 @@ class cake:
     sql_command = f"""SELECT password from users where username = "{name}";"""
     crsr.execute(sql_command)
     result = crsr.fetchone()
-    print(result)
+    
     if result == None:
       print("Wrong info, try again.")
       self.login(crsr)
@@ -105,6 +118,28 @@ class cake:
 
     crsr.execute(sql_command)
     self.connection.commit()
+
+  def deleteUser(self, crsr):
+    print("Who's account do you want to delete?")
+    name = input()
+    sql_command = f"""SELECT * from users where username = "{name}";"""
+    crsr.execute(sql_command)
+    result = crsr.fetchall()
+    
+    id = result[0][0]
+    self.disableForeignKeyCheck(crsr)
+    sql_command = f"""DELETE FROM users where id = "{id}";"""
+    crsr.execute(sql_command)
+    self.enableForeignKeyCheck(crsr)
+    self.connection.commit()
+
+  def disableForeignKeyCheck(self, crsr):
+    sql_command = """SET FOREIGN_KEY_CHECKS=0;""" # to disable them
+    crsr.execute(sql_command)
+
+  def enableForeignKeyCheck(self, crsr):
+    sql_command = """SET FOREIGN_KEY_CHECKS=1;""" # to enable them
+    crsr.execute(sql_command)
 
   def closeConnection(self):
     # close the connection
