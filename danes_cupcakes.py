@@ -84,9 +84,28 @@ class cake:
 
 
 
-  def updateMenu(self, item, value):
-    sql_command = f"""UPDATE menu """
-    pass
+  def updateMenu(self, crsr):
+    print("What do you want to change? (prices, flavors)")
+    i = input()
+    if i == "prices":
+      self.selectMenu(crsr)
+      print("Which cupcake price do you want to change? (Enter flavor)")
+      flavor = input()
+      print("Enter new price: ")
+      price = input()
+      sql_command = f"""UPDATE menu set price = "{price}" where flavor = "{flavor}";"""
+      crsr.execute(sql_command)
+      self.connection.commit()
+    elif i == "flavors":
+      self.selectMenu(crsr)
+      print("Which cupcake flavor do you want to change? (Enter flavor)")
+      flavor = input()
+      print("Enter new name: ")
+      name = input()
+      sql_command = f"""UPDATE menu set flavor = "{name}" where flavor = "{flavor}";"""
+      crsr.execute(sql_command)
+      self.connection.commit()
+    
     
   def selectUsers(self, crsr):
     sql_command = """SELECT * FROM users;"""

@@ -14,7 +14,7 @@ DROP TABLE menu;
 
 SELECT * FROM users;
 
-DELETE FROM users where id = 5;
+DELETE FROM users where id = 4;
 
 insert into users (username, password) values ("Dane", "password1"), ("John", "password2"), ("Kerry", "password3");
 INSERT INTO menu (flavor, price) VALUES ("Chocolate", 5), ("Vanilla", 4), ("Cookies & Cream", 7);
@@ -25,7 +25,8 @@ SELECT * FROM menu;
 SELECT * FROM orders;
 
 
-
+UPDATE menu set price = 5 where flavor = "Chocolate";
+update menu set flavor = "Vanilla" where flavor = "Strawberry";
 
 SELECT * from users where username = "dane";
 

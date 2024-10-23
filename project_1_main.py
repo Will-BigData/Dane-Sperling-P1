@@ -6,7 +6,7 @@ test = cl.cake()
 crsr = test.openConnection()
 
 #test.start(crsr)
-test.deleteUser(crsr)
-test.selectUsers(crsr)
-
+#test.deleteUser(crsr)
+#test.selectUsers(crsr)
+test.updateMenu(crsr)
 test.closeConnection()
