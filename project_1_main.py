@@ -5,8 +5,11 @@ test = cl.cake()
 
 crsr = test.openConnection()
 
-#test.start(crsr)
+test.start(crsr)
+test.makeOrder(crsr)
 #test.deleteUser(crsr)
 #test.selectUsers(crsr)
-test.updateMenu(crsr)
+#test.updateMenu(crsr)
+test.selectOrders(crsr)
+
 test.closeConnection()

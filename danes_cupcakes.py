@@ -2,7 +2,8 @@ import mysql.connector
 
 class cake:
   connection = any
-  
+  user = str
+
 
 
   def __init__(self):
@@ -39,6 +40,7 @@ class cake:
 
     if(name == "admin" and pw == "MasterPassword!1"):
       print("Logged in")
+      self.user = name
       return True
     sql_command = f"""SELECT password from users where username = "{name}";"""
     crsr.execute(sql_command)
@@ -49,6 +51,7 @@ class cake:
       self.login(crsr)
     elif result[0] == pw:
       print("Logged in")
+      self.user = name
       return False
     else:
       print("Wrong info, try again.")
@@ -78,6 +81,23 @@ class cake:
         self.connection.commit()
         passed = True
 
+  def makeOrder(self, crsr):
+    self.selectMenu(crsr)
+    print("What would you like to order?")
+    i = input()
+    sql_command = f"""SELECT * from menu where flavor = "{i}";"""
+    crsr.execute(sql_command)
+    result = crsr.fetchall()
+    if result == None:
+      print("Non valid answer, try again.")
+      self.makeOrder(crsr)
+    price = result[0][1]
+    sql_command = f"""SELECT id from users where username = "{self.user}";"""
+    crsr.execute(sql_command)
+    result = crsr.fetchall()
+    sql_command = f"""Insert into orders (orderPrice, item, userId) VALUES ("{price}", "{i}","{result[0][0]}");"""
+    crsr.execute(sql_command)
+    self.connection.commit()
     
     
 
@@ -126,7 +146,6 @@ class cake:
     sql_command = """SELECT * FROM menu;"""
     crsr.execute(sql_command)
     result = crsr.fetchall()
-    print(type(result))
     for x in result:
       print(x)
 
@@ -134,7 +153,6 @@ class cake:
     sql_command = """SELECT * FROM orders;"""
     crsr.execute(sql_command)
     result = crsr.fetchall()
-    print(type(result))
     for x in result:
       print(x)
     
@@ -144,6 +162,9 @@ class cake:
 
     crsr.execute(sql_command)
     self.connection.commit()
+
+
+  
 
   def deleteUser(self, crsr):
     print("Who's account do you want to delete?")
