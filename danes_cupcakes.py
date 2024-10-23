@@ -105,6 +105,13 @@ class cake:
       sql_command = f"""UPDATE menu set flavor = "{name}" where flavor = "{flavor}";"""
       crsr.execute(sql_command)
       self.connection.commit()
+    else:
+      print("Unknown option, try again.")
+      self.updateMenu(crsr)
+    print("Want to change anything else? (Y/N)")
+    i = input()
+    if i == "Y":
+      self.updateMenu(crsr)
     
     
   def selectUsers(self, crsr):
