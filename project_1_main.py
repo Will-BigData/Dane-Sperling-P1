@@ -5,11 +5,14 @@ test = cl.cake()
 
 crsr = test.openConnection()
 
+print("Do you have an account? (Y/N): ")
+i = input()
+if i =="Y":
+    admin = test.login(crsr)
+    
 
-#loggedIn = test.login(crsr)
 
-
-test.createLogin(crsr)
+#test.createUser(crsr)
 
 #test.selectUsers(crsr)
 

@@ -17,22 +17,33 @@ class cake:
     return self.connection.cursor()
 
   def login(self, crsr):
+
+
     print("Enter Username: ")
     name = input()
     print("Enter Password: ")
     pw = input()
 
     if(name == "admin" and pw == "MasterPassword!1"):
+      print("Logged in")
       return True
     sql_command = f"""SELECT password from users where username = "{name}";"""
     crsr.execute(sql_command)
     result = crsr.fetchone()
-    if result[0] == pw:
-      return True
-    else:
+    print(result)
+    if result == None:
+      print("Wrong info, try again.")
+      self.login(crsr)
+    elif result[0] == pw:
+      print("Logged in")
       return False
+    else:
+      print("Wrong info, try again.")
+      self.login(crsr)
     
-  def createLogin(self, crsr):
+
+    
+  def createUser(self, crsr):
     print("To create a profile, enter a Username: ")
 
     passed = False
