@@ -81,6 +81,23 @@ class cake:
         self.connection.commit()
         passed = True
 
+  def deleteProfile(self, crsr):
+    print("Are you sure you want to delete your profile? (Y/N)")
+    i = input()
+    if i == "Y":
+      sql_command = f"""SELECT * from users where username = "{self.user}";"""
+      crsr.execute(sql_command)
+      result = crsr.fetchall()
+      
+      id = result[0][0]
+      self.disableForeignKeyCheck(crsr)
+      sql_command = f"""DELETE FROM users where id = "{id}";"""
+      crsr.execute(sql_command)
+      self.enableForeignKeyCheck(crsr)
+      self.connection.commit()
+    elif i == "N":
+      print("Ok, returning to options.")
+
   def makeOrder(self, crsr):
     self.selectMenu(crsr)
     print("What would you like to order?")
@@ -100,8 +117,36 @@ class cake:
     self.connection.commit()
     
     
+  def updateUserName(self, crsr):
+    print("To make sure this is truly you, enter your password: ")
+    i = input()
+    sql_command = f"""SELECT * FROM users where password = "{i}";"""
+    crsr.execute(sql_command)
+    result = crsr.fetchone()
+    if result == None:
+      print("Wrong password.")
+    elif result[2] == i:
+      print("What would you like your new username to be?")
+      i = input()
+      sql_command = f"""UPDATE users set username = "{i}" where username = "{self.user}";"""
+      crsr.execute(sql_command)
+      self.connection.commit()
+      self.user = i
 
-
+  def updatePassword(self, crsr):
+    print("To make sure this is truly you, enter your current password: ")
+    i = input()
+    sql_command = f"""SELECT * FROM users where password = "{i}";"""
+    crsr.execute(sql_command)
+    result = crsr.fetchone()
+    if result == None:
+      print("Wrong password.")
+    elif result[2] == i:
+      print("What would you like your new password to be?")
+      i = input()
+      sql_command = f"""UPDATE users set password = "{i}" where username = "{self.user}";"""
+      crsr.execute(sql_command)
+      self.connection.commit()
 
 
   def updateMenu(self, crsr):
