@@ -220,12 +220,24 @@ class cake:
     for x in result:
       print(x)
     
+  def viewOrders(self, crsr):
+    sql_command = f"""SELECT id from users WHERE username = "{self.user}";"""
+    crsr.execute(sql_command)
+    result = crsr.fetchone()
 
-  def insert(self, username:str, password:str, crsr):
-    sql_command = f"""INSERT INTO users (username, password) VALUES("{username}", "{password}");"""
+    #print(result[0])
+    sql_command = f"""SELECT * from orders WHERE userId = "{result[0]}";"""
+    crsr.execute(sql_command)
+    result = crsr.fetchall()
+    print("Orders:")
+    for x in result:
+      print(x)
+
+  """ def insert(self, username:str, password:str, crsr):
+    sql_command = fINSERT INTO users (username, password) VALUES("{username}", "{password}");
 
     crsr.execute(sql_command)
-    self.connection.commit()
+    self.connection.commit() """
 
 
   

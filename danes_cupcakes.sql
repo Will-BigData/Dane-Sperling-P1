@@ -18,7 +18,7 @@ DELETE FROM users where id = 4;
 
 insert into users (username, password) values ("Dane", "password1"), ("John", "password2"), ("Kerry", "password3");
 INSERT INTO menu (flavor, price) VALUES ("Chocolate", 5), ("Vanilla", 4), ("Cookies & Cream", 7);
-Insert into orders (item, userId) VALUES ("Chocolate", 1);
+Insert into orders (orderPrice, item, userId) VALUES (5, "Chocolate", 1);
 
 SELECT * FROM menu;
 
