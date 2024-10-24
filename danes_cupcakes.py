@@ -76,7 +76,7 @@ class cake:
       else:
         print("Enter Password: ")
         pw = input()
-        sql_command = f"""Insert into users (username, password) values ("{name}", "{pw}");"""
+        sql_command = f"""Insert into users (username, password, admin) values ("{name}", "{pw}", "{False}");"""
         crsr.execute(sql_command)
         self.connection.commit()
         passed = True
@@ -116,6 +116,45 @@ class cake:
       self.enableForeignKeyCheck(crsr)
       self.connection.commit()
     
+  def makeAdmin(self, crsr):
+    self.selectUsers(crsr)
+    print("Which user do you want to give admin privileges? (Enter their user ID)")
+    i = input()
+
+    sql_command = f"""SELECT * FROM users where id = "{i}";"""
+    crsr.execute(sql_command)
+    result = crsr.fetchall()
+
+    if result != []:
+      if result[0][3] == False:
+        sql_command = f"""UPDATE users set admin = true where id = "{i}";"""
+        crsr.execute(sql_command)
+        self.connection.commit()
+      else:
+        print("User already has admin privileges.")
+    else:
+      print("There is no user with that ID, try again.")
+      self.makeAdmin(crsr)
+
+  def notAdmin(self,crsr):
+    self.selectUsers(crsr)
+    print("Which user do you want to take away admin privileges? (Enter their user ID)")
+    i = input()
+
+    sql_command = f"""SELECT * FROM users where id = "{i}";"""
+    crsr.execute(sql_command)
+    result = crsr.fetchall()
+
+    if result != []:
+      if result[0][3] == True:
+        sql_command = f"""UPDATE users set admin = false where id = "{i}";"""
+        crsr.execute(sql_command)
+        self.connection.commit()
+      else:
+        print("User already does not have admin privileges.")
+    else:
+      print("There is no user with that ID, try again.")
+      self.notAdmin(crsr)
 
   def makeOrder(self, crsr):
     self.selectMenu(crsr)

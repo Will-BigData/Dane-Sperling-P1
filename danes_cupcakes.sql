@@ -1,7 +1,7 @@
 USE cupcakes;
 
 
-CREATE TABLE users(id INT NOT NULL AUTO_INCREMENT, username VARCHAR(255), password VARCHAR(255), PRIMARY KEY (id));
+CREATE TABLE users(id INT NOT NULL AUTO_INCREMENT, username VARCHAR(255), password VARCHAR(255), admin bool, PRIMARY KEY (id));
 
 CREATE TABLE menu(flavor varchar(255) primary key NOT NULL, price int);
 
@@ -16,7 +16,7 @@ SELECT * FROM users;
 
 DELETE FROM users where id = 4;
 
-insert into users (username, password) values ("Dane", "password1"), ("John", "password2"), ("Kerry", "password3");
+insert into users (username, password) values ("Dane", "password1", false), ("John", "password2", false), ("Kerry", "password3", false);
 INSERT INTO menu (flavor, price) VALUES ("Chocolate", 5), ("Vanilla", 4), ("Cookies & Cream", 7);
 Insert into orders (orderPrice, item, userId) VALUES (5, "Chocolate", 1);
 
