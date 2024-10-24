@@ -13,6 +13,6 @@ test.start(crsr)
 #test.selectOrders(crsr)
 #test.deleteProfile(crsr)
 #test.updateUserName(crsr)
-test.updatePassword(crsr)
-
+#test.updatePassword(crsr)
+test.deleteUser(crsr)
 test.closeConnection()

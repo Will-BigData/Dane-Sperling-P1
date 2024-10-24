@@ -98,6 +98,25 @@ class cake:
     elif i == "N":
       print("Ok, returning to options.")
 
+  def deleteUser(self, crsr):
+    self.selectUsers(crsr)
+    print("Whose profile do you want to remove? (Enter user id)")
+    i = input()
+    
+    sql_command = f""" SELECT * from users where id = "{i}"; """
+    crsr.execute(sql_command)
+    result = crsr.fetchall()
+    if result == []:
+      print("Invalid user id, please enter again.")
+      self.deleteUser(crsr)
+    else:
+      self.disableForeignKeyCheck(crsr)
+      sql_command = f""" DELETE FROM users where id = "{i}"; """
+      crsr.execute(sql_command)
+      self.enableForeignKeyCheck(crsr)
+      self.connection.commit()
+    
+
   def makeOrder(self, crsr):
     self.selectMenu(crsr)
     print("What would you like to order?")
@@ -211,19 +230,7 @@ class cake:
 
   
 
-  def deleteUser(self, crsr):
-    print("Who's account do you want to delete?")
-    name = input()
-    sql_command = f"""SELECT * from users where username = "{name}";"""
-    crsr.execute(sql_command)
-    result = crsr.fetchall()
-    
-    id = result[0][0]
-    self.disableForeignKeyCheck(crsr)
-    sql_command = f"""DELETE FROM users where id = "{id}";"""
-    crsr.execute(sql_command)
-    self.enableForeignKeyCheck(crsr)
-    self.connection.commit()
+  
 
   def disableForeignKeyCheck(self, crsr):
     sql_command = """SET FOREIGN_KEY_CHECKS=0;""" # to disable them
