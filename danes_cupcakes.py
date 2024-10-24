@@ -197,7 +197,23 @@ class cake:
     if i == "Y":
       self.updateMenu(crsr)
     
-    
+  def addMenu(self, crsr):
+    self.selectMenu(crsr)
+    print("Enter flavor that you want to add: ")
+    flavor = input()
+    sql_command = f"""SELECT * from menu WHERE flavor = "{flavor}";"""
+    crsr.execute(sql_command)
+    result = crsr.fetchall()
+    if result == []:
+      print("Enter price of item: ")
+      price = input()
+      sql_command = f"""INSERT INTO menu (flavor, price) VALUES ("{flavor}", "{price}");"""
+      crsr.execute(sql_command)
+      self.connection.commit()
+    else:
+      print("Flavor already exists, please try again")
+      self.addMenu(crsr)
+
   def selectUsers(self, crsr):
     sql_command = """SELECT * FROM users;"""
     crsr.execute(sql_command)
