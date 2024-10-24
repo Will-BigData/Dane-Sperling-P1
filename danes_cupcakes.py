@@ -96,6 +96,69 @@ class cake:
 
         passed = True
 
+  def options(self, crsr):
+    repeat = True
+    if self.admin == True:
+        print("Hello, you have admin privileges for Dane's Cupcakes. What would you like to do?")
+
+        #admin
+        while repeat:
+            print("1: Print out list of users\n2: Print out the menu\n3: Print out the list of orders\n4: Update the menu")
+            print("5: Add items to the menu\n6: Delete items from the menu\n7: Give another user admin privileges")
+            print("8: Take away admin priviliges\n9: Look at the current profit\n10: Delete a users account")
+            i = input()
+            match int(i):
+                case 1: 
+                    self.selectUsers(crsr)
+                case 2:
+                    self.selectMenu(crsr)
+                case 3:
+                    self.selectOrders(crsr)
+                case 4:
+                    self.updateMenu(crsr)
+                case 5:
+                    self.addMenu(crsr)
+                case 6:
+                    self.deleteMenu(crsr)
+                case 7:
+                    self.makeAdmin(crsr)
+                case 8:
+                    self.notAdmin(crsr)
+                case 9: 
+                    self.viewProfit(crsr)
+                case 10:
+                    self.deleteUser(crsr)
+            print("Would you like to do anything else? (y/n)")
+            i = input()
+            if i == "n":
+                repeat = False
+                
+    else:
+        #User
+        print("Welcome to Dane's Cupcakes! What would you like to do?")
+        while repeat:
+            print("1: Add a cupcake to your order?\n2: View your cart?\n3: Update your Username?\n4: Update your password?")
+            print("5: Look at your total for your current cart\n6: Delete your account")
+            i = input()
+            match int(i):
+                case 1:
+                    self.makeOrder(crsr)
+                case 2:
+                    self.viewOrders(crsr)
+                case 3:
+                    self.updateUserName(crsr)
+                case 4:
+                    self.updatePassword(crsr)
+                case 5:
+                    self.viewTotal(crsr)
+                case 6:
+                    self.deleteProfile(crsr)
+            print("Would you like to do anything else? (y/n)")
+            i = input()
+            if i == "n":
+                repeat = False
+
+
   def deleteProfile(self, crsr):
     print("Are you sure you want to delete your profile? (Y/N)")
     i = input()
@@ -328,14 +391,14 @@ class cake:
     sql_command = f"""SELECT SUM(orderPrice) from orders where userId = "{self.id}";"""
     crsr.execute(sql_command)
     result = crsr.fetchone()
-    print(result[0])
+    print(f"${result[0]}")
   
 
   def viewProfit(self,crsr):
     sql_command = """SELECT SUM(orderPrice) from orders;"""
     crsr.execute(sql_command)
     result = crsr.fetchone()
-    print(result[0])
+    print(f"${result[0]}")
 
   def disableForeignKeyCheck(self, crsr):
     sql_command = """SET FOREIGN_KEY_CHECKS=0;""" # to disable them
