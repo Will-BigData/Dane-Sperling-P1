@@ -214,6 +214,21 @@ class cake:
       print("Flavor already exists, please try again")
       self.addMenu(crsr)
 
+  def deleteMenu(self, crsr):
+    self.selectMenu(crsr)
+    print("Enter flavor that you want to delete: ")
+    flavor = input()
+    sql_command = f"""SELECT * from menu WHERE flavor = "{flavor}";"""
+    crsr.execute(sql_command)
+    result = crsr.fetchall()
+    if result != []:
+      sql_command = f"""DELETE FROM menu WHERE flavor = "{flavor}";"""
+      crsr.execute(sql_command)
+      self.connection.commit()
+    else:
+      print("Flavor doesn't exists, please try again")
+      self.deleteMenu(crsr)
+
   def selectUsers(self, crsr):
     sql_command = """SELECT * FROM users;"""
     crsr.execute(sql_command)
