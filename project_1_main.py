@@ -9,6 +9,8 @@ test.start(crsr)
 #test.makeOrder(crsr)
 
 #test.selectUsers(crsr)
+#test.selectMenu(crsr)
+
 #test.updateMenu(crsr)
 #test.selectOrders(crsr)
 #test.deleteProfile(crsr)
@@ -19,5 +21,6 @@ test.start(crsr)
 #test.addMenu(crsr)
 #test.deleteMenu(crsr)
 #test.makeAdmin(crsr)
-test.notAdmin(crsr)
+#test.notAdmin(crsr)
+
 test.closeConnection()

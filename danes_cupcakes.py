@@ -3,6 +3,7 @@ import mysql.connector
 class cake:
   connection = any
   user = str
+  admin = bool
 
 
 
@@ -23,7 +24,7 @@ class cake:
     print("Do you have an account? (Y/N): ")
     i = input()
     if i =="Y":
-        admin = self.login(crsr)
+        self.login(crsr)
     elif i == "N":
         self.createUser(crsr)
     else:
@@ -41,18 +42,22 @@ class cake:
     if(name == "admin" and pw == "MasterPassword!1"):
       print("Logged in")
       self.user = name
+      self.admin = True
       return True
-    sql_command = f"""SELECT password from users where username = "{name}";"""
+    sql_command = f"""SELECT * from users where username = "{name}";"""
     crsr.execute(sql_command)
     result = crsr.fetchone()
     
     if result == None:
       print("Wrong info, try again.")
       self.login(crsr)
-    elif result[0] == pw:
+    elif result[2] == pw:
       print("Logged in")
       self.user = name
-      return False
+      if result[3] == 1:
+        self.admin = True
+      else:
+        self.admin = False
     else:
       print("Wrong info, try again.")
       self.login(crsr)
