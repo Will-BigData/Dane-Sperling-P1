@@ -3,6 +3,7 @@ import mysql.connector
 class cake:
   connection = any
   user = str
+  id = int
   admin = bool
 
 
@@ -54,6 +55,7 @@ class cake:
     elif result[2] == pw:
       print("Logged in")
       self.user = name
+      self.id = result[0]
       if result[3] == 1:
         self.admin = True
       else:
@@ -84,6 +86,14 @@ class cake:
         sql_command = f"""Insert into users (username, password, admin) values ("{name}", "{pw}", "{False}");"""
         crsr.execute(sql_command)
         self.connection.commit()
+        self.user = name
+        self.admin = False
+
+        sql_command = f"""SELECT * FROM users where username = "{name}";"""
+        crsr.execute(sql_command)
+        result = crsr.fetchone()
+        self.id = result[0]
+
         passed = True
 
   def deleteProfile(self, crsr):
@@ -314,10 +324,18 @@ class cake:
     crsr.execute(sql_command)
     self.connection.commit() """
 
-
+  def viewTotal(self,crsr):
+    sql_command = f"""SELECT SUM(orderPrice) from orders where userId = "{self.id}";"""
+    crsr.execute(sql_command)
+    result = crsr.fetchone()
+    print(result[0])
   
 
-  
+  def viewProfit(self,crsr):
+    sql_command = """SELECT SUM(orderPrice) from orders;"""
+    crsr.execute(sql_command)
+    result = crsr.fetchone()
+    print(result[0])
 
   def disableForeignKeyCheck(self, crsr):
     sql_command = """SET FOREIGN_KEY_CHECKS=0;""" # to disable them
