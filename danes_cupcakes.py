@@ -115,27 +115,29 @@ class cake:
             print("5: Add items to the menu\n6: Delete items from the menu\n7: Give another user admin privileges")
             print("8: Take away admin priviliges\n9: Look at the current profit\n10: Delete a users account")
             i = input()
-            match int(i):
-                case 1: 
+            match i:
+                case '1': 
                     self.selectUsers(crsr)
-                case 2:
+                case '2':
                     self.selectMenu(crsr)
-                case 3:
+                case '3':
                     self.selectOrders(crsr)
-                case 4:
+                case '4':
                     self.updateMenu(crsr)
-                case 5:
+                case '5':
                     self.addMenu(crsr)
-                case 6:
+                case '6':
                     self.deleteMenu(crsr)
-                case 7:
+                case '7':
                     self.makeAdmin(crsr)
-                case 8:
+                case '8':
                     self.notAdmin(crsr)
-                case 9: 
+                case '9': 
                     self.viewProfit(crsr)
-                case 10:
+                case '10':
                     self.deleteUser(crsr)
+                case _:
+                  pass
             print("Would you like to do anything else? (y/n)")
             i = input()
             if i == "n":
