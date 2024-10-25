@@ -150,19 +150,21 @@ class cake:
             print("1: Add a cupcake to your order?\n2: View your cart?\n3: Update your Username?\n4: Update your password?")
             print("5: Look at your total for your current cart\n6: Delete your account")
             i = input()
-            match int(i):
-                case 1:
+            match i:
+                case '1':
                     self.makeOrder(crsr)
-                case 2:
+                case '2':
                     self.viewOrders(crsr)
-                case 3:
+                case '3':
                     self.updateUserName(crsr)
-                case 4:
+                case '4':
                     self.updatePassword(crsr)
-                case 5:
+                case '5':
                     self.viewTotal(crsr)
-                case 6:
+                case '6':
                     self.deleteProfile(crsr)
+                case _:
+                  pass
             print("Would you like to do anything else? (y/n)")
             i = input()
             if i == "n":
@@ -364,9 +366,11 @@ class cake:
     crsr.execute(sql_command)
     result = crsr.fetchall()
     if result != []:
+      self.disableForeignKeyCheck(crsr)
       sql_command = f"""DELETE FROM menu WHERE flavor = "{flavor}";"""
       crsr.execute(sql_command)
       self.connection.commit()
+      self.enableForeignKeyCheck(crsr)
       logging.info(f"Deleted {flavor} from the menu.")
 
     else:

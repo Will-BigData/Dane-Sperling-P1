@@ -12,3 +12,52 @@
 2024-10-25 08:33:46,577:INFO:Connected to the database.
 2024-10-25 08:33:54,453:INFO:User Admin logged in.
 2024-10-25 08:33:58,467:INFO:Disconected to the database
+2024-10-25 10:32:14,297:INFO:Connected to the database.
+2024-10-25 10:32:31,983:INFO:User John logged in.
+2024-10-25 10:32:39,116:INFO:Selected all items from menu.
+2024-10-25 10:32:48,892:INFO:User John added Chocolate to their order.
+2024-10-25 10:32:52,253:INFO:Selected all items from menu.
+2024-10-25 10:32:56,864:INFO:User John added Mint Chip to their order.
+2024-10-25 10:33:00,901:INFO:Selected all items from menu.
+2024-10-25 10:33:03,782:INFO:User John added Vanilla to their order.
+2024-10-25 10:33:08,071:INFO:John looked at their cart.
+2024-10-25 10:33:22,064:INFO:John viewed the sum of their total.
+2024-10-25 10:33:34,162:INFO:Disconected to the database
+2024-10-25 10:33:38,507:INFO:Connected to the database.
+2024-10-25 10:33:57,814:INFO:User Admin logged in.
+2024-10-25 10:34:07,377:INFO:Selected all users.
+2024-10-25 10:34:15,376:INFO:Selected all items from menu.
+2024-10-25 10:34:21,009:INFO:Selected all orders.
+2024-10-25 10:35:04,131:INFO:Selected all items from menu.
+2024-10-25 10:35:35,301:INFO:Selected all items from menu.
+2024-10-25 10:35:52,164:INFO:Added Peanut Butter to the menu.
+2024-10-25 10:35:55,778:INFO:Selected all items from menu.
+2024-10-25 10:36:06,478:INFO:Selected all items from menu.
+2024-10-25 10:36:22,057:INFO:Connected to the database.
+2024-10-25 10:36:42,042:INFO:User Connor created and logged in.
+2024-10-25 10:36:54,244:INFO:Connor viewed the sum of their total.
+2024-10-25 10:37:28,947:INFO:User Connor deleted from database.
+2024-10-25 10:37:50,859:INFO:Connected to the database.
+2024-10-25 10:38:05,008:INFO:User Dane logged in.
+2024-10-25 10:38:18,463:INFO:Selected all users.
+2024-10-25 10:38:28,283:INFO:User Kerry now has admin privileges.
+2024-10-25 10:38:39,112:INFO:Selected all orders.
+2024-10-25 10:38:48,538:INFO:Looked at total sum of orders
+2024-10-25 10:38:59,594:INFO:Disconected to the database
+2024-10-25 10:45:18,830:INFO:Connected to the database.
+2024-10-25 10:45:26,730:INFO:User Dane logged in.
+2024-10-25 10:45:29,978:INFO:Selected all items from menu.
+2024-10-25 10:45:34,221:INFO:Deleted Mint Chip from the menu.
+2024-10-25 10:45:39,005:INFO:Selected all items from menu.
+2024-10-25 10:45:40,588:INFO:Disconected to the database
+2024-10-25 10:46:22,530:INFO:Connected to the database.
+2024-10-25 10:46:32,804:INFO:User Admin logged in.
+2024-10-25 10:46:37,254:INFO:Selected all orders.
+2024-10-25 10:46:46,553:INFO:Looked at total sum of orders
+2024-10-25 10:46:48,139:INFO:Disconected to the database
+2024-10-25 10:50:02,881:INFO:Connected to the database.
+2024-10-25 10:50:16,305:INFO:User Admin logged in.
+2024-10-25 10:50:18,834:INFO:Selected all items from menu.
+2024-10-25 10:50:24,959:INFO:Selected all items from menu.
+2024-10-25 10:50:30,124:INFO:Deleted Chocolate from the menu.
+2024-10-25 10:50:33,809:INFO:Selected all items from menu.
