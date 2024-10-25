@@ -1,4 +1,8 @@
 import mysql.connector
+import logging
+
+logging.basicConfig(filename='store.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
+
 
 class cake:
   connection = any
@@ -17,6 +21,7 @@ class cake:
     )
   
   def openConnection(self):
+    logging.info("Connected to the database.")
     return self.connection.cursor()
   
   
@@ -44,6 +49,7 @@ class cake:
       print("Logged in")
       self.user = name
       self.admin = True
+      logging.info(f"User Admin logged in.")
       return True
     sql_command = f"""SELECT * from users where username = "{name}";"""
     crsr.execute(sql_command)
@@ -56,6 +62,7 @@ class cake:
       print("Logged in")
       self.user = name
       self.id = result[0]
+      logging.info(f"User {name} logged in.")
       if result[3] == 1:
         self.admin = True
       else:
@@ -88,6 +95,7 @@ class cake:
         self.connection.commit()
         self.user = name
         self.admin = False
+        logging.info(f"User {name} created and logged in.")
 
         sql_command = f"""SELECT * FROM users where username = "{name}";"""
         crsr.execute(sql_command)
@@ -173,6 +181,8 @@ class cake:
       crsr.execute(sql_command)
       self.enableForeignKeyCheck(crsr)
       self.connection.commit()
+      logging.info(f"User {self.user} deleted from database.")
+
     elif i == "N":
       print("Ok, returning to options.")
 
@@ -193,6 +203,8 @@ class cake:
       crsr.execute(sql_command)
       self.enableForeignKeyCheck(crsr)
       self.connection.commit()
+      logging.info(f"User {result[0][1]} deleted from database.")
+
     
   def makeAdmin(self, crsr):
     self.selectUsers(crsr)
@@ -208,6 +220,8 @@ class cake:
         sql_command = f"""UPDATE users set admin = true where id = "{i}";"""
         crsr.execute(sql_command)
         self.connection.commit()
+        logging.info(f"User {result[0][1]} now has admin privileges.")
+
       else:
         print("User already has admin privileges.")
     else:
@@ -251,6 +265,8 @@ class cake:
     sql_command = f"""Insert into orders (orderPrice, item, userId) VALUES ("{price}", "{i}","{result[0][0]}");"""
     crsr.execute(sql_command)
     self.connection.commit()
+    logging.info(f"User {self.user} added {i} to their order.")
+
     
     
   def updateUserName(self, crsr):
@@ -267,6 +283,7 @@ class cake:
       sql_command = f"""UPDATE users set username = "{i}" where username = "{self.user}";"""
       crsr.execute(sql_command)
       self.connection.commit()
+      logging.info(f"User {self.user} changed username to {i}.")
       self.user = i
 
   def updatePassword(self, crsr):
@@ -283,6 +300,8 @@ class cake:
       sql_command = f"""UPDATE users set password = "{i}" where username = "{self.user}";"""
       crsr.execute(sql_command)
       self.connection.commit()
+      logging.info(f"User {self.user} changed password to {i}.")
+
 
 
   def updateMenu(self, crsr):
@@ -306,6 +325,8 @@ class cake:
       sql_command = f"""UPDATE menu set flavor = "{name}" where flavor = "{flavor}";"""
       crsr.execute(sql_command)
       self.connection.commit()
+      logging.info(f"Updated menu.")
+
     else:
       print("Unknown option, try again.")
       self.updateMenu(crsr)
@@ -327,6 +348,8 @@ class cake:
       sql_command = f"""INSERT INTO menu (flavor, price) VALUES ("{flavor}", "{price}");"""
       crsr.execute(sql_command)
       self.connection.commit()
+      logging.info(f"Added {flavor} to the menu.")
+
     else:
       print("Flavor already exists, please try again")
       self.addMenu(crsr)
@@ -342,6 +365,8 @@ class cake:
       sql_command = f"""DELETE FROM menu WHERE flavor = "{flavor}";"""
       crsr.execute(sql_command)
       self.connection.commit()
+      logging.info(f"Deleted {flavor} from the menu.")
+
     else:
       print("Flavor doesn't exists, please try again")
       self.deleteMenu(crsr)
@@ -350,7 +375,8 @@ class cake:
     sql_command = """SELECT * FROM users;"""
     crsr.execute(sql_command)
     result = crsr.fetchall()
-  
+    logging.info(f"Selected all users.")
+
     for x in result:
       print(x)
 
@@ -358,6 +384,7 @@ class cake:
     sql_command = """SELECT * FROM menu;"""
     crsr.execute(sql_command)
     result = crsr.fetchall()
+    logging.info(f"Selected all items from menu.")
     for x in result:
       print(x)
 
@@ -365,15 +392,17 @@ class cake:
     sql_command = """SELECT * FROM orders;"""
     crsr.execute(sql_command)
     result = crsr.fetchall()
+    logging.info(f"Selected all orders.")
     for x in result:
       print(x)
     
   def viewOrders(self, crsr):
     sql_command = f"""SELECT id from users WHERE username = "{self.user}";"""
     crsr.execute(sql_command)
+    logging.info(f"{self.user} looked at their cart.")
     result = crsr.fetchone()
 
-    #print(result[0])
+    
     sql_command = f"""SELECT * from orders WHERE userId = "{result[0]}";"""
     crsr.execute(sql_command)
     result = crsr.fetchall()
@@ -381,17 +410,12 @@ class cake:
     for x in result:
       print(x)
 
-  """ def insert(self, username:str, password:str, crsr):
-    sql_command = fINSERT INTO users (username, password) VALUES("{username}", "{password}");
-
-    crsr.execute(sql_command)
-    self.connection.commit() """
-
   def viewTotal(self,crsr):
     sql_command = f"""SELECT SUM(orderPrice) from orders where userId = "{self.id}";"""
     crsr.execute(sql_command)
     result = crsr.fetchone()
     print(f"${result[0]}")
+    logging.info(f"{self.user} viewed the sum of their total.")
   
 
   def viewProfit(self,crsr):
@@ -399,6 +423,7 @@ class cake:
     crsr.execute(sql_command)
     result = crsr.fetchone()
     print(f"${result[0]}")
+    logging.info(f"Looked at total sum of orders")
 
   def disableForeignKeyCheck(self, crsr):
     sql_command = """SET FOREIGN_KEY_CHECKS=0;""" # to disable them
@@ -410,5 +435,6 @@ class cake:
 
   def closeConnection(self):
     # close the connection
+    logging.info(f"Disconected to the database")
     self.connection.close()
     

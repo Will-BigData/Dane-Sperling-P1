@@ -1,6 +1,5 @@
 USE cupcakes;
 
-
 CREATE TABLE users(id INT NOT NULL AUTO_INCREMENT, username VARCHAR(255), password VARCHAR(255), admin bool, PRIMARY KEY (id));
 
 CREATE TABLE menu(flavor varchar(255) primary key NOT NULL, price int);
